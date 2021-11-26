@@ -3,17 +3,13 @@ public class Program {
         IRobot robot = new MyBot();
         Routine routine = new MyRoutine();
 
-        double distance = 0.0;
-
-        while (!routine.done()) {
-            Movement movement = routine.nextMovement();
-
-            distance += Math.sqrt(Math.pow(movement.x(), 2) + Math.pow(movement.y(), 2));
-
-            robot.move(movement);
+        Course course = new Course();
+        course.run(robot, routine);
+        if (course.allVisited()) {
+            System.out.println("All points visited!");
+            System.out.println("Distance Travelled: " + course.distanceTravelled());
+        } else {
+            course.listMissedPoints();
         }
-
-        System.out.println("Robot position: " + robot.positionX() + ", " + robot.positionY());
-        System.out.println("Distance travelled: " + distance);
     }
 }
